@@ -1,0 +1,88 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ncut.ssm.mapper.HotGirlGroupMapper" >
+  <resultMap id="BaseResultMap" type="com.ncut.ssm.pojo.HotGirlGroup" >
+    <id column="hotgirlid" property="hotgirlid" jdbcType="INTEGER" />
+    <result column="hotgirlgroupnum" property="hotgirlgroupnum" jdbcType="INTEGER" />
+    <result column="hotgirlgroupname" property="hotgirlgroupname" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    hotgirlid, hotgirlgroupnum, hotgirlgroupname
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from hotgirlgroup
+    where hotgirlid = #{hotgirlid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from hotgirlgroup
+    where hotgirlid = #{hotgirlid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ncut.ssm.pojo.HotGirlGroup" >
+    insert into hotgirlgroup (hotgirlid, hotgirlgroupnum, hotgirlgroupname
+      )
+    values (#{hotgirlid,jdbcType=INTEGER}, #{hotgirlgroupnum,jdbcType=INTEGER}, #{hotgirlgroupname,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ncut.ssm.pojo.HotGirlGroup" >
+    insert into hotgirlgroup
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="hotgirlid != null" >
+        hotgirlid,
+      </if>
+      <if test="hotgirlgroupnum != null" >
+        hotgirlgroupnum,
+      </if>
+      <if test="hotgirlgroupname != null" >
+        hotgirlgroupname,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="hotgirlid != null" >
+        #{hotgirlid,jdbcType=INTEGER},
+      </if>
+      <if test="hotgirlgroupnum != null" >
+        #{hotgirlgroupnum,jdbcType=INTEGER},
+      </if>
+      <if test="hotgirlgroupname != null" >
+        #{hotgirlgroupname,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ncut.ssm.pojo.HotGirlGroup" >
+    update hotgirlgroup
+    <set >
+      <if test="hotgirlgroupnum != null" >
+        hotgirlgroupnum = #{hotgirlgroupnum,jdbcType=INTEGER},
+      </if>
+      <if test="hotgirlgroupname != null" >
+        hotgirlgroupname = #{hotgirlgroupname,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where hotgirlid = #{hotgirlid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ncut.ssm.pojo.HotGirlGroup" >
+    update hotgirlgroup
+    set hotgirlgroupnum = #{hotgirlgroupnum,jdbcType=INTEGER},
+      hotgirlgroupname = #{hotgirlgroupname,jdbcType=VARCHAR}
+    where hotgirlid = #{hotgirlid,jdbcType=INTEGER}
+  </update>
+
+  <select id="getAllGroup" resultMap="BaseResultMap" >
+    select *
+    from hotgirlgroup
+  </select>
+
+  <select id="getAllGroupCount" resultType="java.lang.Integer" >
+    select count(1)
+    from hotgirlgroup
+  </select>
+
+  <select id="getGroupNameByGroupNum" resultMap="BaseResultMap" parameterType="java.lang.Integer">
+    select hotgirlgroupname
+    from hotgirlgroup
+    where hotgirlgroupnum = #{groupnum,jdbcType=INTEGER}
+  </select>
+
+</mapper>
