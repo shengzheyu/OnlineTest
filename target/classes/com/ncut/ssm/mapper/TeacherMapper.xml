@@ -143,4 +143,12 @@
     where teachernum = #{teacherNum,jdbcType=VARCHAR}
   </select>
 
+  <select id="getTeacherByCurrentPage" parameterType="HashMap" resultMap="BaseResultMap">
+    select * from teacher
+    where teacherid limit #{currentpage},#{pagecount}
+  </select>
+  <select id="getAllTeacherCount" resultType="java.lang.Integer">
+    select COUNT(teacherid) from teacher
+  </select>
+
 </mapper>

@@ -68,4 +68,9 @@
       coursename = #{coursename,jdbcType=VARCHAR}
     where courseid = #{courseid,jdbcType=INTEGER}
   </update>
+
+  <select id="getAllCourse" resultMap="BaseResultMap">
+    select * from course
+  </select>
+
 </mapper>

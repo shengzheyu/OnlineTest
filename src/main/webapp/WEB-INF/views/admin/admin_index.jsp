@@ -144,6 +144,7 @@
       <dd>
         <ul>
           <li><a _href="/admin/AdminList" href="javascript:void(0)">管理员列表</a></li>
+          <li><a _href="/teacher/TeacherList" href="javascript:void(0)">老师列表</a></li>
         </ul>
       </dd>
     </dl>

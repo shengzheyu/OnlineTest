@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.ncut.ssm.mapper.TcMapper" >
+  <resultMap id="BaseResultMap" type="com.ncut.ssm.pojo.Tc" >
+    <id column="tcid" property="tcid" jdbcType="INTEGER" />
+    <result column="teachernum" property="teachernum" jdbcType="VARCHAR" />
+    <result column="coursenum" property="coursenum" jdbcType="VARCHAR" />
+  </resultMap>
+  <sql id="Base_Column_List" >
+    tcid, teachernum, coursenum
+  </sql>
+  <select id="selectByPrimaryKey" resultMap="BaseResultMap" parameterType="java.lang.Integer" >
+    select 
+    <include refid="Base_Column_List" />
+    from tc
+    where tcid = #{tcid,jdbcType=INTEGER}
+  </select>
+  <delete id="deleteByPrimaryKey" parameterType="java.lang.Integer" >
+    delete from tc
+    where tcid = #{tcid,jdbcType=INTEGER}
+  </delete>
+  <insert id="insert" parameterType="com.ncut.ssm.pojo.Tc" >
+    insert into tc (tcid, teachernum, coursenum
+      )
+    values (#{tcid,jdbcType=INTEGER}, #{teachernum,jdbcType=VARCHAR}, #{coursenum,jdbcType=VARCHAR}
+      )
+  </insert>
+  <insert id="insertSelective" parameterType="com.ncut.ssm.pojo.Tc" >
+    insert into tc
+    <trim prefix="(" suffix=")" suffixOverrides="," >
+      <if test="tcid != null" >
+        tcid,
+      </if>
+      <if test="teachernum != null" >
+        teachernum,
+      </if>
+      <if test="coursenum != null" >
+        coursenum,
+      </if>
+    </trim>
+    <trim prefix="values (" suffix=")" suffixOverrides="," >
+      <if test="tcid != null" >
+        #{tcid,jdbcType=INTEGER},
+      </if>
+      <if test="teachernum != null" >
+        #{teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenum != null" >
+        #{coursenum,jdbcType=VARCHAR},
+      </if>
+    </trim>
+  </insert>
+  <update id="updateByPrimaryKeySelective" parameterType="com.ncut.ssm.pojo.Tc" >
+    update tc
+    <set >
+      <if test="teachernum != null" >
+        teachernum = #{teachernum,jdbcType=VARCHAR},
+      </if>
+      <if test="coursenum != null" >
+        coursenum = #{coursenum,jdbcType=VARCHAR},
+      </if>
+    </set>
+    where tcid = #{tcid,jdbcType=INTEGER}
+  </update>
+  <update id="updateByPrimaryKey" parameterType="com.ncut.ssm.pojo.Tc" >
+    update tc
+    set teachernum = #{teachernum,jdbcType=VARCHAR},
+      coursenum = #{coursenum,jdbcType=VARCHAR}
+    where tcid = #{tcid,jdbcType=INTEGER}
+  </update>
+</mapper>

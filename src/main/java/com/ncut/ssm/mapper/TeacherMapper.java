@@ -2,6 +2,9 @@ package com.ncut.ssm.mapper;
 
 import com.ncut.ssm.pojo.Teacher;
 
+import java.util.HashMap;
+import java.util.List;
+
 public interface TeacherMapper {
     int deleteByPrimaryKey(Integer teacherid);
 
@@ -16,4 +19,9 @@ public interface TeacherMapper {
     int updateByPrimaryKey(Teacher record);
 
     Teacher getTeacherByNum(String teacherNum);
+
+    List<Teacher> getTeacherByCurrentPage(HashMap map);
+
+    int getAllTeacherCount();
+
 }

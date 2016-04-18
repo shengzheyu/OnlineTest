@@ -2,6 +2,8 @@ package com.ncut.ssm.mapper;
 
 import com.ncut.ssm.pojo.Course;
 
+import java.util.List;
+
 public interface CourseMapper {
     int deleteByPrimaryKey(Integer courseid);
 
@@ -14,4 +16,6 @@ public interface CourseMapper {
     int updateByPrimaryKeySelective(Course record);
 
     int updateByPrimaryKey(Course record);
+
+    List<Course> getAllCourse();
 }
