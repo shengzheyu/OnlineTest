@@ -151,4 +151,10 @@
     select COUNT(teacherid) from teacher
   </select>
 
+  <select id="getTeacherListByNum" parameterType="java.lang.String" resultMap="BaseResultMap">
+    select *
+    from teacher
+    where teachernum = #{teacherNum,jdbcType=VARCHAR}
+  </select>
+
 </mapper>

@@ -9,4 +9,8 @@ import java.util.List;
  */
 public interface CourseService {
     public List<Course> getAllCourse();
+
+    public List selectCourseNumByTeacherNum(String teachernum);
+
+    public List<Course> selectCourseNameByCourseNum(List<Course> courseList);
 }

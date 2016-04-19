@@ -68,4 +68,11 @@
       coursenum = #{coursenum,jdbcType=VARCHAR}
     where tcid = #{tcid,jdbcType=INTEGER}
   </update>
+
+  <!--根据教师编号删除记录-->
+  <delete id="deleteByTeachernum" parameterType="java.lang.String" >
+    delete from tc
+    where teachernum=#{teachernum,jdbcType=VARCHAR}
+  </delete>
+
 </mapper>

@@ -1,10 +1,12 @@
 ﻿<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <%@ page import="com.ncut.ssm.pojo.Teacher" %>
 <%@ page import="java.util.List" %>
+<%@ page import="java.util.HashMap" %>
 <%@ page contentType="text/html;charset=UTF-8" language="java" %>
 <%
 	int i = 0;
 	List<Teacher> TeacherList = (List<Teacher>)request.getAttribute("TeacherList");
+	List<List<HashMap>> allCourseList = (List<List<HashMap>>)request.getAttribute("allCourseList");
 	Integer allTeacherCount=(Integer)request.getAttribute("allTeacherCount");
 	String currentpage=(String)request.getAttribute("currentpage");
 	String pagecount=(String)request.getAttribute("pagecount");
@@ -82,7 +84,7 @@
 					<th width="150">登录名</th>
 					<th width="90">姓名</th>
 					<th width="150">年龄</th>
-					<th>角色</th>
+					<th>课程</th>
 					<th width="130">电话号</th>
 					<th width="100">是否已启用</th>
 					<th width="100">操作</th>
@@ -92,6 +94,17 @@
 				<%
 					for (Teacher teacher:TeacherList)
 					{
+						List<HashMap> courseList=allCourseList.get(i);
+						String str="";
+						int j=0;
+						for(HashMap hashMap:courseList){
+							if(j<courseList.size()-1){
+								str+=(String)hashMap.get("coursename");
+								str+=",";
+							}else
+								str+=(String)hashMap.get("coursename");
+							j++;
+						}
 						i++;
 				%>
 				<tr class="text-c">
@@ -100,10 +113,12 @@
 					<td><%=teacher.getTeachernum()%></td>
 					<td><%=teacher.getName()%></td>
 					<td><%=teacher.getAge()%></td>
-					<td>老师</td>
+					<td>
+						<%=str%>
+					</td>
 					<td><%=teacher.getPhone()%></td>
 					<td class="td-status"><span class="label label-success radius">已启用</span></td>
-					<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('管理员编辑','/admin/AdminEditJump?adminId=<%=teacher.getTeacherid()%>','19930511','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="admin_del(this,'<%=teacher.getTeachernum()%>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
+					<td class="td-manage"><a style="text-decoration:none" onClick="admin_stop(this,'10001')" href="javascript:;" title="停用"><i class="Hui-iconfont">&#xe631;</i></a> <a title="编辑" href="javascript:;" onclick="admin_edit('教师编辑','/teacher/TeacherEditJump?TeacherId=<%=teacher.getTeacherid()%>','19930511','800','500')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6df;</i></a> <a title="删除" href="javascript:;" onclick="teacher_del(this,'<%=teacher.getTeacherid()%>','<%=teacher.getTeachernum()%>')" class="ml-5" style="text-decoration:none"><i class="Hui-iconfont">&#xe6e2;</i></a></td>
 				</tr>
 				<%
 					}
@@ -179,6 +194,59 @@ $('.table-sort').dataTable({
 	function addteacher(){
 		layer_show("添加教师","AddTeacher","800","500")
 	}
+
+function teacher_del(obj,id,num){
+	layer.confirm('确认要删除吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+		$.ajax({
+			url:"/teacher/TeacherDelete",
+			data:{teacherid:id,teachernum:num},
+			type:"POST",
+			dataType:"String",
+			async:false,
+			cache:false,
+			success:function(result){
+				if(result.equals("DeleteSuccess")){
+					return true;
+				}else {
+					return false;
+				}
+			}
+		});
+		$(obj).parents("tr").remove();
+		layer.msg('已删除!',{icon:1,time:1000});
+	});
+}
+/*教师-编辑*/
+function admin_edit(title,url,id,w,h){
+	layer_show(title,url,w,h);
+}
+
+/*教师-停用*/
+function admin_stop(obj,id){
+	layer.confirm('确认要停用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+
+		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_start(this,id)" href="javascript:;" title="启用" style="text-decoration:none"><i class="Hui-iconfont">&#xe615;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-default radius">已禁用</span>');
+		$(obj).remove();
+		layer.msg('已停用!',{icon: 5,time:1000});
+	});
+}
+
+/*教师-启用*/
+function admin_start(obj,id){
+	layer.confirm('确认要启用吗？',function(index){
+		//此处请求后台程序，下方是成功后的前台处理……
+
+
+		$(obj).parents("tr").find(".td-manage").prepend('<a onClick="admin_stop(this,id)" href="javascript:;" title="停用" style="text-decoration:none"><i class="Hui-iconfont">&#xe631;</i></a>');
+		$(obj).parents("tr").find(".td-status").html('<span class="label label-success radius">已启用</span>');
+		$(obj).remove();
+		layer.msg('已启用!', {icon: 6,time:1000});
+	});
+}
+
  </script>
 </body>
 </html>

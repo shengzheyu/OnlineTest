@@ -73,4 +73,21 @@
     select * from course
   </select>
 
+  <select id="selectCourseNumByTeacherNum" resultType="java.util.HashMap" parameterType="java.lang.String" >
+    select tc.tcid,course.coursename
+    from tc,course
+    where tc.coursenum=course.coursenum and teachernum = #{teachernum,jdbcType=VARCHAR}
+  </select>
+
+
+  <select id="selectCourseNameByCourseNum" resultMap="BaseResultMap" parameterType="list" >
+    select coursename
+    from course
+    where coursenum inL
+      <foreach item="coursenumList" index="index" collection="list"
+                      open="(" separator="," close=")">
+          #{coursenumList.coursename}
+    </foreach>
+  </select>
+
 </mapper>

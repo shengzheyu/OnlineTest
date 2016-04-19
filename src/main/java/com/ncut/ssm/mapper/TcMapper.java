@@ -14,4 +14,6 @@ public interface TcMapper {
     int updateByPrimaryKeySelective(Tc record);
 
     int updateByPrimaryKey(Tc record);
+
+    int deleteByTeachernum(String teachernum);
 }

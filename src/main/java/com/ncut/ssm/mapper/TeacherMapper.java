@@ -24,4 +24,7 @@ public interface TeacherMapper {
 
     int getAllTeacherCount();
 
+    List<Teacher> getTeacherListByNum(String teachernum);
+
+
 }

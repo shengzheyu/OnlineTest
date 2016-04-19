@@ -19,4 +19,11 @@ public class CourseServiceImpl implements CourseService {
     public List<Course> getAllCourse() {
         return this.courseDao.getAllCourse();
     }
+
+    public List selectCourseNumByTeacherNum(String teachernum){
+        return this.courseDao.selectCourseNumByTeacherNum(teachernum);
+    }
+    public List<Course> selectCourseNameByCourseNum(List<Course> courseList){
+        return this.courseDao.selectCourseNameByCourseNum(courseList);
+    }
 }

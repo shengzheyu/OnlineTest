@@ -19,4 +19,16 @@ public interface TeacherService {
     public void insertTc(Tc record);
 
     public int getAllTeacherCount();
+
+    public int updateByPrimaryKeySelective(Teacher teacher);
+
+    public Teacher selectByPrimaryKey(Integer teacherid);
+
+    public int updateByPrimaryKeySelective(Tc tc);
+
+    public int deleteByPrimaryKey(Integer teacherid);
+
+    public int deleteFromTcByTeachernum(String teachernum);
+
+    public List<Teacher>getTeacherListByNum(String teachernum);
 }
