@@ -58,7 +58,6 @@ public class TeacherController {
         String adress=request.getParameter("adress");
         String course=request.getParameter("course");
         Teacher teacher=new Teacher();
-        teacher.setTeacherid(Integer.valueOf(teacherId));
         teacher.setAdress(adress);
         teacher.setAge(Integer.parseInt(age));
         teacher.setEmail(email);
@@ -67,29 +66,34 @@ public class TeacherController {
         teacher.setPhone(phone);
         teacher.setSex(sex);
         teacher.setTeachernum(teacherNum);
+        try{
+            List<Teacher> list=this.teacherService.getTeacherListByNum(teacherNum);
+            if(list.size()!=0)
+                return "alreadyexist";
+        }catch (Exception e){
+            System.out.println(e);
+        }
+       /**
+        * 编辑功能中课程需要改进成checkbox，所以暂时不做编辑处理
+        */
+       /* Tc tc=new Tc();
+        tc.setTeachernum(teacherNum);
+        tc.setCoursenum(course);*/
         try {
             this.teacherService.updateByPrimaryKeySelective(teacher);
+         //   this.teacherService.insertTc(tc);
         }
         catch (Exception e){
             System.out.println(e);
         }
-        Tc tc=new Tc();
-        tc.setTeachernum(teacherNum);
-        tc.setCoursenum(course);
-        try {
-            this.teacherService.updateByPrimaryKeySelective(tc);
-        }
-        catch (Exception e){
-            System.out.println(e);
-        }
-        return "EditTeacherSuccess";
+        return "editTeacherSuccess";
     }
 
-    @RequestMapping("/TeacherEditJump")//跳转编辑管理员界面
+    @RequestMapping("/TeacherEditJump")//跳转编辑界面
     public String TeacherEditJump(HttpServletRequest request, Model model,String TeacherId){
 
         System.out.print(TeacherId);
-        System.out.print(TeacherId);
+    //    System.out.print(tcid);
         request.setAttribute("teacherId",TeacherId);
         int teacherid = Integer.valueOf(TeacherId);
         Teacher teacher = teacherService.selectByPrimaryKey(teacherid);

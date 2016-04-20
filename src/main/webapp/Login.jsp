@@ -39,7 +39,7 @@
       <div class="row cl">
         <label class="form-label col-3"><i class="Hui-iconfont">&#xe60d;</i></label>
         <div class="formControls col-8">
-          <input id="loginname" name="loginname" type="text" placeholder="用户名" value="别TM偷摸看我网站。。" class="input-text size-L" >
+          <input id="loginname" name="loginname" type="text" placeholder="用户名" value="admin" class="input-text size-L" >
           <br>
           <label id="loginnameError" ></label>
         </div>

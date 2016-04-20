@@ -13,6 +13,7 @@
   String teacherId = request.getAttribute("teacherId").toString();
   Teacher teacher = (Teacher)request.getAttribute("Teacher");
   List<Course> courseList=(List<Course>)request.getAttribute("courseList");
+  String tcid = request.getParameter("tcid");
 %>
 <html>
 <head>
@@ -36,45 +37,57 @@
   <![endif]-->
   <title>添加教师</title>
   <script type="text/javascript">
-    function submit_form(obj){
-
-      layer.confirm('确认编辑？',function(index){
+    function submit_form(obj) {
+      layer.confirm('确认修改？', function (index) {
         //此处请求后台程序，下方是成功后的前台处理……
         //存数据
         var teacherid = document.getElementById("teacherid").value;
         var loginname = document.getElementById("username").value;
         var loginpass = document.getElementById("loginpass").value;
-        var username=document.getElementById("name").value;
+        var username = document.getElementById("name").value;
         var phone = document.getElementById("phone").value;
         var email = document.getElementById("email").value;
-        var adress=document.getElementById("adress").value;
-        var course=document.getElementById("course").value;
+        var adress = document.getElementById("adress").value;
+        var course = document.getElementById("course").value;
         //age是radio类型
         var sex = $("input[name='sex']:checked").val();
+        var remark = document.getElementById("remark").value;
         var age = document.getElementById("age").value;
+
         $.ajax({
-          url:"/teacher/TeacherEdit",
-          type:"POST",
-          data:{teacherid:teacherid,username:username,loginname:loginname,loginpass:loginpass,phone:phone,age:age,adress:adress,email:email,sex:sex,course:course},//,sex:sex,
-          dataType:"String",
-          async:false,
-          cache:false,
-          success:function(result){
-            if(result.equals("EditTeacherSuccess")){
-              return true;
-            }else {
-              return false;
+          url: "/teacher/TeacherEdit",
+          type: "post",
+          data: {
+            'username': username,
+            'teacherid':teacherid,
+            'loginname': loginname,
+            'loginpass': loginpass,
+            'phone': phone,
+            'age': age,
+            'adress': adress,
+            'email': email,
+            'sex': sex,
+            'course': course
+          },//,sex:sex,
+          error: function (XMLResponse) {
+            alert(XMLResponse.responseText)
+          },
+          success: function (data) {
+            //  alert("122213");
+            if (data == "alreadyexist") {
+              layer.msg('用户名已存在', {icon: 1, time: 1000});
+              $("#errormessage").css("display", "");
+              $("#errormessage").css("color", "red");
+              $("#errormessage").text("用户名已存在！");
+            }
+            else {
+              $("#errormessage").css("display", "none");
+              layer.msg('已添加!', {icon: 1, time: 1000});
+              //     parent.layer.close(index);
             }
           }
         });
-        //location.href="/admin/AdminDelete";
-        layer.msg('已修改!',{icon:1,time:1000});
-
       });
-      /* 关闭当前页面 不管用
-       parent.layer.close(this);
-       */
-      /*  $("#form-admin-add").submit()*/
     }
 
   </script>
@@ -96,6 +109,7 @@
       </div>
       <div class="col-4"> </div>
     </div>
+    <label id="errormessage"></label>
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>初始密码：</label>
       <div class="formControls col-5">

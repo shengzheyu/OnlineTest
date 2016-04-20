@@ -7,6 +7,7 @@ import com.ncut.ssm.service.AdminService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 import javax.servlet.http.HttpServletRequest;
@@ -100,7 +101,7 @@ public class AdminController {
     }
 
     @RequestMapping("/AdminAdd")//跳转新增管理员界面
-    public String AdminAdd(HttpServletRequest request, Model model){
+    public String AdminAdd(HttpServletRequest request,Model model){
 
         //获取前台新增管理员信息
         String username = request.getParameter("username");//真实姓名

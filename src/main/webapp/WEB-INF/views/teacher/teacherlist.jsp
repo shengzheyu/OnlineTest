@@ -108,7 +108,7 @@
 						i++;
 				%>
 				<tr class="text-c">
-					<td><input type="checkbox" value="1" name=""></td>
+					<td><input type="checkbox" value="<%=i%>" name=""></td>
 					<td><%=i%></td>
 					<td><%=teacher.getTeachernum()%></td>
 					<td><%=teacher.getName()%></td>
