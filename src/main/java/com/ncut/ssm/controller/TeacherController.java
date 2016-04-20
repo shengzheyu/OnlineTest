@@ -45,6 +45,7 @@ public class TeacherController {
     }
 
     @RequestMapping("/TeacherEdit")//跳转编辑管理员界面
+    @ResponseBody
     public String TeacherEdit(HttpServletRequest request, Model model){
 
         String teacherId = request.getParameter("teacherid");
@@ -64,6 +65,7 @@ public class TeacherController {
         teacher.setName(teacherName);
         teacher.setPassword(password);
         teacher.setPhone(phone);
+        teacher.setTeacherid(Integer.valueOf(teacherId));
         teacher.setSex(sex);
         teacher.setTeachernum(teacherNum);
         try{
@@ -154,7 +156,7 @@ public class TeacherController {
                     str+=(String)hashMap.get("coursename");
                 j++;
             }
-            System.out.println(str);
+/*            System.out.println(str);*/
             i++;
         }
         model.addAttribute("TeacherList", list);

@@ -51,7 +51,6 @@
         var course = document.getElementById("course").value;
         //age是radio类型
         var sex = $("input[name='sex']:checked").val();
-        var remark = document.getElementById("remark").value;
         var age = document.getElementById("age").value;
 
         $.ajax({
@@ -82,7 +81,7 @@
             }
             else {
               $("#errormessage").css("display", "none");
-              layer.msg('已添加!', {icon: 1, time: 1000});
+              layer.msg('修改成功!', {icon: 1, time: 1000});
               //     parent.layer.close(index);
             }
           }
@@ -95,8 +94,8 @@
 <body>
 <div class="pd-20">
   <form action="" method="post" class="form form-horizontal" id="form-teacher-add">
-    <div class="row cl" style="display: none">
-      <label class="form-label col-3"><span class="c-red">*</span>AdminId：</label>
+    <div class="row cl" style="display: none;">
+      <label class="form-label col-3"><span class="c-red">*</span>TeacherId：</label>
       <div class="formControls col-5">
         <input type="text" class="input-text" value="<%=teacherId%>" placeholder="" id="teacherid" name="teacherid" datatype="*2-16" nullmsg="TeacherId不能为空">
       </div>
@@ -106,10 +105,10 @@
       <label class="form-label col-3"><span class="c-red">*</span>用户名:</label>
       <div class="formControls col-5">
         <input type="text" class="input-text" value="<%=teacher.getTeachernum()%>" placeholder="" id="username" name="username" datatype="*2-16" nullmsg="用户名不能为空">
-      </div>
+      </div>    <label id="errormessage"></label>
       <div class="col-4"> </div>
     </div>
-    <label id="errormessage"></label>
+
     <div class="row cl">
       <label class="form-label col-3"><span class="c-red">*</span>初始密码：</label>
       <div class="formControls col-5">
